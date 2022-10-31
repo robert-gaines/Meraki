@@ -73,7 +73,7 @@ def GetDeviceData(key,ids):
 
 def main():
     print("Retrieve Device Serials")
-    oid     = "249996"
+    oid     = input("[+] Enter the organization ID-> ")
     url     = "https://api.meraki.com/api/v1/organizations/{0}/networks".format(oid)
     key     = input("[+] Enter the Meraki API Key-> ")
     net_ids = GetNetworkIDs(url,key)
