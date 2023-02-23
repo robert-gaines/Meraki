@@ -58,7 +58,6 @@ def GetOrganizationDevices(oid,url,key):
             if(current_iter > 25):
                 write_index = chars[secondary_index]+chars[alpha_iter]+str(col_index)
                 current_worksheet.write(write_index,col_hdr[col_hdr_index])
-                print("Writing",col_hdr[col_hdr_index])
             if(current_iter < 25):
                 write_index = chars[char_index]+str(col_index)
                 current_worksheet.write(write_index,col_hdr[col_hdr_index])

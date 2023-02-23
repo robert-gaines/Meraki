@@ -52,7 +52,7 @@ def GetNetworks(oids,key):
                 if(len(network_name) >= 31):
                     network_name = network_name[0:30] 
                 networks.append([network_id,network_name])
-        return networks
+    return networks
 
 def RetrieveSwitchACLs(nets,key):
     print("[~] Retrieving switch access control policies from each site...")

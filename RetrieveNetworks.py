@@ -131,9 +131,7 @@ def GetNetworks(org_ids,key):
                     time.sleep(5)
                 else:
                     pass
-        workbook.close()
-    else:
-        sys.exit()
+    workbook.close()
 
 def main():
     print("Retrieve the organization's networks")

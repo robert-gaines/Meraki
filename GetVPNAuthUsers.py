@@ -4,7 +4,7 @@ import time
 import sys
 
 def GenFileName():
-    file_name = "CI_All_Network_Clients_"
+    file_name = "CI_All_VPN_Clients_"
     timestamp = time.ctime()
     replace_colons = timestamp.replace(":",'_')
     final_timestamp = replace_colons.replace(" ","_")
@@ -44,10 +44,10 @@ def GetNetworks(oids,key):
                 if(len(network_name) >= 31):
                     network_name = network_name[0:30] 
                 networks.append([network_id,network_name])
-    return networks
+        return networks
 
-def GetClients(nets,key):
-    print("[~] Processing clients at each site")
+def GetVPNClients(nets,key):
+    print("[~] Processing VPN clients at each site")
     headers = {
                  "X-Cisco-Meraki-API-Key":key
               }
@@ -86,10 +86,11 @@ def GetClients(nets,key):
             char_index = 0
             alpha_iter = 0
         row_index = 2 
-        client_url   = "https://api.meraki.com/api/v1/networks/{0}/clients?perPage=1000".format(network_id)
+        client_url   = "https://api.meraki.com/api/v1/networks/{0}/merakiAuthUsers".format(network_id)
         req          = requests.get(headers=headers,url=client_url,timeout=15)
         if(req.status_code == 200):
             content  = req.json()
+            print(content)
             if(not content):
                 pass
             else:
@@ -124,15 +125,15 @@ def GetClients(nets,key):
                     row_index += 1
         time.sleep(1)
     workbook.close()
-    print("[*] Network clients inventory file located at: %s " % fileName)
+    print("[*] Network VPN clients inventory file located at: %s " % fileName)
 
 def main():
-    print("Retrieve all network clients")
+    print("Retrieve all VPN network clients")
     key        = input("[+] Enter the Meraki API Key-> ")
     org_url    = "https://api.meraki.com/api/v1/organizations"
     oids       = GetOrganizationID(org_url,key)
     nets       = GetNetworks(oids,key)
-    GetClients(nets,key)
+    GetVPNClients(nets,key)
 
 if(__name__ == '__main__'):
     main()
